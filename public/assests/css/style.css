@@ -1,0 +1,645 @@
+/*CUSTOM CSS*/
+
+/*FONT CDN*/
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+	font-family: 'Jost', sans-serif;
+}
+
+/*TOP BAR*/
+
+#top-bar {
+	background: #000;
+	text-align: center;
+	padding: 10px 0;
+}
+
+#top-bar p {
+	color: #fff;
+	margin: 0;
+}
+
+/*HEADER AREA*/
+
+#header {
+	background: #e94a9a;
+	color: #fff;
+	padding: 10px 0;
+	text-align: center;
+}
+
+/*BANNER AREA*/
+
+#banner {
+	background: #fbddec;
+	padding: 50px 0 0 0;
+	position: relative;
+}
+
+.check-icon {
+	width: 30px;
+}
+
+.banner-left {
+	margin-bottom: 120px;
+}
+
+#banner h1 {
+	font-weight: 700;
+	font-size: 44px;
+	margin-bottom: 20px;
+}
+
+#banner h2 {
+	font-weight: 600;
+	margin-bottom: 20px;
+}
+
+#banner ul {
+	margin: 0;
+	padding: 0;
+}
+
+#banner ul li {
+	font-size: 22px;
+	font-style: italic;
+	line-height: 40px;
+	list-style: none;
+}
+
+#banner .cta-btn .btn {
+	background: #46b500;
+	padding: 15px 30px;
+	color: #fff;
+	font-weight: 700;
+	font-size: 22px;
+	border-radius: 10px;
+}
+
+#banner .cta-btn {
+	margin: 20px 0px 5px 0;
+}
+
+p.cta-text {
+	font-weight: 500;
+}
+
+.banner-image {
+	width: 100%;
+}
+
+/*TESTIMONIAL AREA*/
+
+section#testimonial {
+	background: #d9d9d9;
+}
+
+section#testimonial .container {
+	background: #fff;
+	border-radius: 30px;
+	box-shadow: 0px 2px 17px 8px #00000038;
+	margin-top: -90px;
+	position: relative;
+	padding: 15px 140px;
+}
+
+.profile-pic {
+	width: 120px;
+	margin: 0 auto;
+	display: block;
+}
+
+.profile-sec h4 {
+	font-size: 20px;
+	margin-top: 11px;
+	margin-bottom: 0;
+}
+
+.stars-img {
+	width: 110px;
+}
+
+p.testi-text {
+	font-size: 20px;
+	font-style: italic;
+	margin-top: 20px;
+}
+
+h3.testi-head {
+	font-weight: 600;
+	margin-top: 30px;
+}
+
+/*MEDIA SECTION*/
+
+#media {
+	background: #d9d9d9;
+	padding: 40px 0;
+}
+
+#media h2 {
+	font-size: 36px;
+	text-align: center;
+	margin-bottom: 20px;
+	font-weight: 600;
+}
+
+/*WHY BUY SECTION*/
+
+section#why-buy {
+	padding: 55px 0;
+	background: url(/images/why-buy-banner.jpg);
+	background-size: 100%;
+	background-position: center center;
+}
+
+.rounded-box {
+	border: 2px solid #000;
+	border-radius: 10px;
+	text-align: center;
+	padding: 25px;
+	width: 80%;
+	margin: 0 auto;
+	margin-bottom: 25px;
+}
+
+.rounded-box p {
+	margin: 0px;
+	font-style: italic;
+}
+
+.why-middle-sec h2 {
+	font-weight: 700;
+	margin-bottom: 20px;
+}
+
+.why-middle-sec h3 {
+	font-weight: 600;
+}
+
+.why-middle-sec p {
+	font-size: 16px;
+}
+
+.why-middle-sec .cta-btn {
+	text-align: center;
+}
+
+.why-middle-sec .cta-btn .btn {
+	background: #46b500;
+	padding: 15px 30px;
+	color: #fff;
+	font-weight: 700;
+	font-size: 22px;
+	border-radius: 10px;
+}
+
+.why-middle-sec span.material-symbols-outlined {
+	position: relative;
+	top: 8px;
+}
+
+.why-middle-sec ul li {
+	list-style: none;
+}
+
+.why-middle-sec ul {
+	margin-left: 110px;
+}
+
+/*RESULTS SECTION*/
+
+section#results {
+	background: #fbddec;
+	padding: 55px 0;
+}
+
+section#results h2 {
+	font-size: 42px;
+	font-weight: 700;
+	margin-bottom: 20px;
+	margin-top: 30px;
+}
+
+/*5 STAR SECTION*/
+
+section#star-sec {
+	background: #d9d9d9;
+	padding: 50px 0;
+}
+
+/*SAVE TIME SECTION*/
+
+section#save-time {
+	background: #fbddec;
+	padding: 55px 0 0 0;
+}
+
+.swirl-img {
+	width: 300px;
+	margin: 15px auto;
+	display: block;
+	margin-bottom: 30px;
+}
+
+.save-middle-sec h2 {
+	font-weight: 700;
+}
+
+/*FEATURE SECTION*/
+
+section#feature {
+	padding: 50px 0;
+}
+
+/*MONEY BACK SECTION*/
+
+.money-back {
+	background: #f3ffeb;
+	border-radius: 30px;
+	box-shadow: 0px 0px 18px #33333369;
+	padding: 30px 50px;
+	text-align: center;
+	width: 80%;
+	margin: 20px auto;
+}
+
+section#feature .cta-btn .btn {
+	background: #46b500;
+	padding: 15px 30px;
+	color: #fff;
+	font-weight: 700;
+	font-size: 22px;
+	border-radius: 10px;
+}
+
+.mb-swirl {
+	width: 300px;
+}
+
+.row.money-back h3 {
+	font-weight: 600;
+	margin: 0;
+}
+
+.row.money-back p {
+	margin-top: 20px;
+}
+
+/*ELEMINATE SECTION*/
+
+#eleminate {
+	background: url(/images/eleminate-bg.jpg);
+	background-size: 100%;
+	padding: 55px 0;
+	background-position: center center;
+}
+
+section#eleminate h2 {
+	text-align: center;
+	font-weight: 700;
+}
+
+.left-elem {
+	margin-top: 90px;
+}
+
+/*INGREDIENTS SECTION*/
+
+section#ingredients {
+	padding: 50px 0;
+}
+
+section#ingredients h2 {
+	font-weight: 700;
+	margin-top: 50px;
+}
+
+section#ingredients .cta-btn .btn {
+	background: #46b500;
+	padding: 15px 30px;
+	color: #fff;
+	font-weight: 700;
+	font-size: 22px;
+	border-radius: 10px;
+}
+
+/*OPTIONS SECTION*/
+
+section#options {
+	padding: 55px 0;
+	background: url(/images/banner-2.jpg);
+	background-size: 100%;
+	background-position: center center;
+}
+
+section#options h2 {
+	font-weight: 700;
+	text-align: center;
+}
+
+.swirl-last {
+	width: 360px;
+	margin: 0 auto;
+	display: block;
+	margin-bottom: 40px;
+}
+
+section#options h3 {
+	font-size: 24px;
+}
+
+span.pink-highlight {
+	background: #e94a9a;
+	color: #fff;
+}
+
+/*FAQ SECTION*/
+
+section#questions {
+	padding: 65px 0 75px 0;
+}
+
+section#questions h2 {
+	text-align: center;
+	font-weight: 700;
+}
+
+.swirl-faq {
+	width: 270px;
+	margin: 0 auto;
+	margin-bottom: 30px;
+}
+
+section#questions .accordion-button:not(.collapsed) {
+	color: #ea4f9d;
+	background-color: #ffffff;
+	box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.125);
+	font-size: 20px;
+	font-weight: 600;
+}
+
+section#questions .accordion-button {
+	color: #000;
+	background-color: #ffffff;
+	box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.125);
+	font-size: 20px;
+	font-weight: 600;
+}
+
+/*FOOTER SECTION*/
+
+section#footer {
+	background: #000;
+	color: #fff;
+	padding: 20px 0;
+	text-align: center;
+}
+
+.desktop-only {
+	display: block;
+}
+
+.mob-only {
+	display: none;
+}
+
+/*SMALL DESKTOP RESPONSIVE CSS*/
+
+@media (min-width: 1100px) and (max-width: 1400px) {
+	#banner h1 {
+		font-weight: 700;
+		font-size: 32px;
+		margin-bottom: 20px;
+	}
+
+	#banner h2 {
+		font-weight: 600;
+		margin-bottom: 20px;
+		font-size: 25px;
+	}
+
+	.why-middle-sec h3 {
+		font-weight: 600;
+		font-size: 24px;
+	}
+
+	section#results h2 {
+		font-size: 30px;
+		font-weight: 700;
+		margin-bottom: 20px;
+		margin-top: 30px;
+	}
+
+	.save-middle-sec h2 {
+		font-weight: 700;
+		font-size: 18px;
+	}
+}
+
+/*MOBILE DEVICE RESPONSIVE CSS*/
+
+@media (min-width: 300px) and (max-width: 580px) {
+	#banner {
+		background: #fbddec;
+		padding: 20px 0 0 0;
+		position: relative;
+	}
+
+	#banner h1 {
+		font-weight: 700;
+		font-size: 30px;
+		margin-bottom: 10px;
+	}
+
+	#banner h2 {
+		font-weight: 600;
+		margin-bottom: 10px;
+		font-size: 20px;
+	}
+
+	#banner ul li {
+		font-size: 18px;
+		font-style: italic;
+		line-height: 38px;
+		list-style: none;
+	}
+
+	#banner .cta-btn .btn {
+		background: #46b500;
+		padding: 15px 30px;
+		color: #fff;
+		font-weight: 700;
+		font-size: 18px;
+		border-radius: 10px;
+		width: 100%;
+	}
+
+	#banner .cta-btn {
+		margin: 15px 0px 5px 0;
+	}
+
+	p.cta-text {
+		font-weight: 500;
+		text-align: center;
+	}
+
+	.banner-left {
+		margin-bottom: 0;
+	}
+
+	section#testimonial .container {
+		background: #fff;
+		border-radius: 30px;
+		box-shadow: 0px 2px 17px 8px #00000038;
+		margin-top: -90px;
+		position: relative;
+		padding: 15px 20px;
+	}
+
+	#media h2 {
+		font-size: 26px;
+		text-align: center;
+		margin-bottom: 16px;
+		font-weight: 600;
+	}
+
+	section#why-buy {
+		padding: 35px 10px;
+		background: none;
+		background-size: 100%;
+		background-position: center center;
+	}
+
+	.why-middle-sec ul {
+		margin-left: 0;
+	}
+	.rounded-box {
+		border: 2px solid #000;
+		border-radius: 10px;
+		text-align: center;
+		padding: 20px;
+		width: 100%;
+		margin: 0 auto;
+		margin-bottom: 20px;
+	}
+
+	.why-middle-sec .cta-btn .btn {
+		background: #46b500;
+		padding: 15px 30px;
+		color: #fff;
+		font-weight: 700;
+		font-size: 18px;
+		border-radius: 10px;
+	}
+
+	section#results {
+		background: #fbddec;
+		padding: 25px 0;
+	}
+
+	section#results h2 {
+		font-size: 36px;
+		font-weight: 700;
+		margin-bottom: 15px;
+		margin-top: 10px;
+	}
+
+	img.img-fluid.star-main {
+		margin-bottom: 20px;
+	}
+
+	section#star-sec {
+		background: #d9d9d9;
+		padding: 30px 0;
+	}
+
+	section#save-time {
+		background: #fbddec;
+		padding: 15px 0 0 0;
+	}
+
+	.desktop-only {
+		display: none;
+	}
+
+	.mob-only {
+		display: block;
+	}
+
+	section#feature {
+		padding: 20px 0;
+	}
+
+	.money-back {
+		background: #f3ffeb;
+		border-radius: 30px;
+		box-shadow: 0px 0px 18px #33333369;
+		padding: 20px 15px;
+		text-align: center;
+		width: 100%;
+		margin: 20px auto;
+	}
+	section#feature .cta-btn .btn {
+		background: #46b500;
+		padding: 15px 20px;
+		color: #fff;
+		font-weight: 700;
+		font-size: 18px;
+		border-radius: 10px;
+		width: 100%;
+		margin-bottom: 20px;
+	}
+
+	#eleminate {
+		background: #fbddec;
+		background-size: 100%;
+		padding: 35px 0;
+		background-position: center center;
+	}
+
+	.left-elem {
+		margin-top: 0;
+	}
+
+	section#ingredients .cta-btn .btn {
+		background: #46b500;
+		padding: 15px 30px;
+		color: #fff;
+		font-weight: 700;
+		font-size: 18px;
+		border-radius: 10px;
+		width: 100%;
+	}
+
+	section#options {
+		padding: 35px 0;
+		background: #fff8eb;
+		background-size: 100%;
+		background-position: center center;
+	}
+
+	.swirl-last {
+		width: 240px;
+		margin: 0 auto;
+		display: block;
+		margin-bottom: 20px;
+	}
+
+	section#options h3 {
+		font-size: 18px;
+	}
+
+	section#questions {
+		padding: 35px 0 35px 0;
+	}
+
+	section#questions .accordion-button {
+		color: #000;
+		background-color: #ffffff;
+		box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.125);
+		font-size: 18px;
+		font-weight: 600;
+	}
+}
