@@ -23,7 +23,7 @@ body {
 /*HEADER AREA*/
 
 #header {
-	background: #e94a9a;
+	background: #ab8d65;
 	color: #fff;
 	padding: 10px 0;
 	text-align: center;
@@ -32,7 +32,7 @@ body {
 /*BANNER AREA*/
 
 #banner {
-	background: #fbddec;
+	background: #fff;
 	padding: 50px 0 0 0;
 	position: relative;
 }
@@ -92,7 +92,7 @@ p.cta-text {
 /*TESTIMONIAL AREA*/
 
 section#testimonial {
-	background: #d9d9d9;
+	background: #fff1d8;
 }
 
 section#testimonial .container {
@@ -134,7 +134,7 @@ h3.testi-head {
 /*MEDIA SECTION*/
 
 #media {
-	background: #d9d9d9;
+	background: #fff1d8;
 	padding: 40px 0;
 }
 
@@ -211,7 +211,7 @@ section#why-buy {
 /*RESULTS SECTION*/
 
 section#results {
-	background: #fbddec;
+	background: #fff1d8;
 	padding: 55px 0;
 }
 
@@ -225,14 +225,14 @@ section#results h2 {
 /*5 STAR SECTION*/
 
 section#star-sec {
-	background: #d9d9d9;
+	background: #fff;
 	padding: 50px 0;
 }
 
 /*SAVE TIME SECTION*/
 
 section#save-time {
-	background: #fbddec;
+	background: #fff1d8;
 	padding: 55px 0 0 0;
 }
 
@@ -256,7 +256,7 @@ section#feature {
 /*MONEY BACK SECTION*/
 
 .money-back {
-	background: #f3ffeb;
+	background: #fff1d8;
 	border-radius: 30px;
 	box-shadow: 0px 0px 18px #33333369;
 	padding: 30px 50px;
@@ -351,7 +351,7 @@ section#options h3 {
 }
 
 span.pink-highlight {
-	background: #e94a9a;
+	background: #ab8d65;
 	color: #fff;
 }
 
@@ -373,7 +373,7 @@ section#questions h2 {
 }
 
 section#questions .accordion-button:not(.collapsed) {
-	color: #ea4f9d;
+	color: #ab8d65;
 	background-color: #ffffff;
 	box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.125);
 	font-size: 20px;
@@ -442,7 +442,7 @@ section#footer {
 
 @media (min-width: 300px) and (max-width: 580px) {
 	#banner {
-		background: #fbddec;
+		background: #ffffff;
 		padding: 20px 0 0 0;
 		position: relative;
 	}
@@ -535,7 +535,7 @@ section#footer {
 	}
 
 	section#results {
-		background: #fbddec;
+		background: #fff1d8;
 		padding: 25px 0;
 	}
 
@@ -551,12 +551,12 @@ section#footer {
 	}
 
 	section#star-sec {
-		background: #d9d9d9;
+		background: #ffffff;
 		padding: 30px 0;
 	}
 
 	section#save-time {
-		background: #fbddec;
+		background: #fff1d8;
 		padding: 15px 0 0 0;
 	}
 
@@ -573,7 +573,7 @@ section#footer {
 	}
 
 	.money-back {
-		background: #f3ffeb;
+		background: #fff1d8;
 		border-radius: 30px;
 		box-shadow: 0px 0px 18px #33333369;
 		padding: 20px 15px;
@@ -593,7 +593,7 @@ section#footer {
 	}
 
 	#eleminate {
-		background: #fbddec;
+		background: #fff1d8;
 		background-size: 100%;
 		padding: 35px 0;
 		background-position: center center;

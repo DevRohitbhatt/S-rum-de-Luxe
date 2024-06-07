@@ -11,7 +11,10 @@
 								skin’s youthful glow.
 							</h2>
 							<ul>
-								<li><img src="" class="img-fluid check-icon" /> Diminishes your age spots</li>
+								<li>
+									<img src="/images/check-mark.png" class="img-fluid check-icon" /> Diminishes your
+									age spots
+								</li>
 								<li>
 									<img src="/images/check-mark.png" class="img-fluid check-icon" /> Minimizes the
 									appearance of wrinkles
@@ -26,7 +29,7 @@
 								</li>
 							</ul>
 							<div class="cta-btn">
-								<a href="#" class="btn">TRY SÉRUM DE LUXE NOW >></a>
+								<NuxtLink href="#" class="btn">TRY SÉRUM DE LUXE NOW >></NuxtLink>
 							</div>
 							<p class="cta-text">This is a one-time order. This is not a subscription.</p>
 						</div>
@@ -107,7 +110,7 @@
 							</div>
 
 							<div class="cta-btn">
-								<a href="#" class="btn">TRY SÉRUM DE LUXE NOW >></a>
+								<NuxtLink href="#" class="btn">TRY SÉRUM DE LUXE NOW >></NuxtLink>
 							</div>
 						</div>
 					</div>
@@ -205,7 +208,7 @@
 							bottle.
 						</p>
 						<div class="cta-btn">
-							<a href="#" class="btn">TRY SÉRUM DE LUXE NOW >></a>
+							<NuxtLink href="#" class="btn">TRY SÉRUM DE LUXE NOW >></NuxtLink>
 						</div>
 					</div>
 					<div class="col-md-3">
@@ -257,7 +260,7 @@
 							with dry or sensitive skin.
 						</p>
 						<div class="cta-btn">
-							<a href="#" class="btn">TRY SÉRUM DE LUXE NOW >></a>
+							<NuxtLink href="#" class="btn">TRY SÉRUM DE LUXE NOW >></NuxtLink>
 						</div>
 					</div>
 				</div>
