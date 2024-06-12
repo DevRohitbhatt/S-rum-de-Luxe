@@ -151,6 +151,39 @@ const handleSubmit = () => {
 	}
 };
 
+// SESSION METHODS
+const getSessionData = () => {
+	const requestUri = '/api/session';
+	const requestOptions = {
+		method: 'GET',
+		redirect: 'follow',
+	};
+
+	const { data } = useFetch(requestUri, requestOptions);
+
+	console.log('get-response', data.value);
+};
+
+getSessionData();
+
+const setSessionData = async () => {
+	const requestUri = '/api/session';
+	const myHeaders = new Headers();
+	myHeaders.append('Content-Type', 'application/json');
+	const requestOptions = {
+		method: 'POST',
+		headers: myHeaders,
+		body: JSON.stringify(formData.value),
+		redirect: 'follow',
+	};
+
+	const { data } = await useFetch(requestUri, requestOptions);
+	// const data = await response.json();
+	console.log('response', data.value);
+};
+
+setSessionData();
+
 const checkValidation = () => {
 	let isValid = true;
 	// Email Validation
@@ -721,7 +754,7 @@ onMounted(() => {
 										>
 											<option disabled value="">State/Province</option>
 											<option
-												v-for="(item, key, index) in stateListBilling"
+												v-for="(item, index) in stateListBilling"
 												:key="index"
 												:value="item"
 											>
