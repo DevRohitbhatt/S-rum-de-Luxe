@@ -29,7 +29,7 @@
 								</li>
 							</ul>
 							<div class="cta-btn">
-								<NuxtLink href="#" class="btn">TRY SÉRUM DE LUXE NOW >></NuxtLink>
+								<NuxtLink to="/checkout" class="btn">TRY SÉRUM DE LUXE NOW >></NuxtLink>
 							</div>
 							<p class="cta-text">This is a one-time order. This is not a subscription.</p>
 						</div>
@@ -110,7 +110,7 @@
 							</div>
 
 							<div class="cta-btn">
-								<NuxtLink href="#" class="btn">TRY SÉRUM DE LUXE NOW >></NuxtLink>
+								<NuxtLink to="/checkout" class="btn">TRY SÉRUM DE LUXE NOW >></NuxtLink>
 							</div>
 						</div>
 					</div>
@@ -208,7 +208,7 @@
 							bottle.
 						</p>
 						<div class="cta-btn">
-							<NuxtLink href="#" class="btn">TRY SÉRUM DE LUXE NOW >></NuxtLink>
+							<NuxtLink to="/checkout" class="btn">TRY SÉRUM DE LUXE NOW >></NuxtLink>
 						</div>
 					</div>
 					<div class="col-md-3">
@@ -260,7 +260,7 @@
 							with dry or sensitive skin.
 						</p>
 						<div class="cta-btn">
-							<NuxtLink href="#" class="btn">TRY SÉRUM DE LUXE NOW >></NuxtLink>
+							<NuxtLink to="/checkout" class="btn">TRY SÉRUM DE LUXE NOW >></NuxtLink>
 						</div>
 					</div>
 				</div>
@@ -625,4 +625,6 @@
 
 <script setup></script>
 
-<style scoped></style>
+<style scoped>
+@import url('~/assets/css/style.css');
+</style>
