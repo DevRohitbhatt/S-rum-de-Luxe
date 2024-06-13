@@ -12,6 +12,8 @@ const allCampaignData = await getCampaignData();
 const countryList = allCampaignData.countries;
 const shippingMethods = allCampaignData.shipProfiles;
 const couponsList = allCampaignData.coupons;
+const allProducts = allCampaignData.products;
+const cart = useState();
 const product = {
 	productName: 'Sérum de Luxe',
 	productDescription:
@@ -416,6 +418,33 @@ onMounted(() => {
 	calculateSubTotal();
 	calculateTax();
 	calculateTotal();
+
+	//Get Cart Product Based on Product in URL
+	if (useRoute().query.products !== undefined && useRoute().query.products !== '') {
+		const urlProducts = useRoute().query.products.split(';');
+		let myCart = [];
+
+		for (const product in urlProducts) {
+			const splitChar =
+				urlProducts[product].indexOf(':') < 0 && urlProducts[product].indexOf(',') > 0 ? ',' : ':';
+			const productData = urlProducts[product].split(splitChar);
+			let getProduct = {};
+			allProducts.map((product) => {
+				if (product.campaignProductId == productData[0]) {
+					getProduct = product;
+				}
+			});
+			if (getProduct.campaignProductId) {
+				myCart.push({
+					productId: getProduct.campaignProductId,
+					title: getProduct.productName,
+					price: getProduct.price,
+					image: getProduct.imageUrl,
+					quantity: productData[1],
+				});
+			}
+		}
+	}
 });
 </script>
 
