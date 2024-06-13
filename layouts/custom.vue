@@ -13,7 +13,7 @@
 					<div class="col-md-4"></div>
 					<div class="col-md-4 text-end">
 						<div class="email-id">
-							<a href="mailto:support@sérumdeluxe.com">support@sérumdeluxe.com</a>
+							<a href="mailto:support@sérumdeluxe.com">{{}}</a>
 						</div>
 					</div>
 				</div>

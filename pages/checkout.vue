@@ -7,22 +7,11 @@ definePageMeta({
 	layout: 'custom',
 });
 
-const countryList = [
-	{
-		countryName: 'United States',
-		countryCode: 'US',
-		continent: 'NA',
-		currencyCode: 'USD',
-		numericCode: '840',
-	},
-	{
-		countryName: 'Australia',
-		countryCode: 'AU',
-		continent: 'AU',
-		currencyCode: 'AUD',
-		numericCode: '036',
-	},
-];
+// VARIABLES DECLARATION
+const allCampaignData = await getCampaignData();
+const countryList = allCampaignData.countries;
+const shippingMethods = allCampaignData.shipProfiles;
+const couponsList = allCampaignData.coupons;
 const product = {
 	productName: 'Sérum de Luxe',
 	productDescription:
@@ -32,7 +21,6 @@ const product = {
 	productRating: 5,
 };
 
-// VARIABLES DECLARATION
 let stateList = ref({});
 let stateListBilling = ref({});
 let errors = ref({});
@@ -46,23 +34,7 @@ const cart = ref({
 	total: 0,
 	quantity: 1,
 });
-const shippingMethods = [
-	{
-		name: 'Flat Rate (4-7 business days)',
-		value: 'flat_rate',
-		price: 0,
-	},
-	{
-		name: 'Express (2-3 business days)',
-		value: 'express',
-		price: 10,
-	},
-	{
-		name: 'Overnight (1 business day)',
-		value: 'overnight',
-		price: 20,
-	},
-];
+
 const formData = ref({
 	email: '',
 	phoneNumber: '',
@@ -91,8 +63,6 @@ const formData = ref({
 	creditCardMonth: '',
 	creditCardYear: '',
 	creditCardCVV: '',
-	shippingMethod: '',
-	couponCode: '',
 });
 
 //METHODS;
@@ -153,7 +123,7 @@ const handleSubmit = () => {
 
 // SESSION METHODS
 const getSessionData = () => {
-	const requestUri = '/api/session';
+	const requestUri = '/api/sessionData/session';
 	const requestOptions = {
 		method: 'GET',
 		redirect: 'follow',
@@ -167,7 +137,7 @@ const getSessionData = () => {
 getSessionData();
 
 const setSessionData = async () => {
-	const requestUri = '/api/session';
+	const requestUri = '/api/sessionData/session';
 	const myHeaders = new Headers();
 	myHeaders.append('Content-Type', 'application/json');
 	const requestOptions = {
@@ -442,7 +412,7 @@ const calculateTotal = () => {
 
 //LIFECYCLE METHODS
 onMounted(() => {
-	formatTimer(timer.value);
+	formatTimer();
 	calculateSubTotal();
 	calculateTax();
 	calculateTotal();
@@ -630,9 +600,9 @@ onMounted(() => {
 											<option
 												v-for="(item, index) in shippingMethods"
 												:key="index"
-												:value="item.value"
+												:value="item.shipProfileId"
 											>
-												{{ item.name + ': $' + item.price }}
+												{{ item.profileName }}
 											</option>
 										</select>
 										<p class="text-error-msg" v-if="errors.shippingMethod">
