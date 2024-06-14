@@ -2,6 +2,9 @@
 export default defineNuxtConfig({
 	devtools: { enabled: true },
 	modules: ['@pinia/nuxt'],
+	pinia: {
+		storesDirs: ['./stores'],
+	},
 	app: {
 		head: {
 			meta: [{ name: 'viewport', content: 'width=device-width, initial-scale=1' }],

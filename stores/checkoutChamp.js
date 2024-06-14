@@ -1,7 +1,13 @@
 import { defineStore } from 'pinia';
 
 export const usecheckoutChampStore = defineStore('checkoutChamp', () => {
-	const cart = ref([]);
-	const sessionId = ref(null);
-	const pageType = ref(null);
+	let cart = ref([]);
+	const sessionId = ref('');
+	const pageType = ref('');
+
+	const setCartOnStore = (cartData) => {
+		cart.value = cartData;
+	};
+
+	return { cart, sessionId, pageType, setCartOnStore };
 });

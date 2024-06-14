@@ -1,6 +1,5 @@
 <script setup>
 import states from '~/assets/states.json';
-import img from '/images/product.png';
 
 // CUSTOM LAYOUT
 definePageMeta({
@@ -13,29 +12,13 @@ const countryList = allCampaignData.countries;
 const shippingMethods = allCampaignData.shipProfiles;
 const couponsList = allCampaignData.coupons;
 const allProducts = allCampaignData.products;
-const cart = useState();
-const product = {
-	productName: 'Sérum de Luxe',
-	productDescription:
-		'Advanced Antioxidant Skincare That Erases Wrinkles In A Single Bottle. The All-In-One Facial Serum Designed To Lift Fine Lines, Wrinkles, and bring back your skin’s youthful glow.',
-	productPrice: 47,
-	productImage: img,
-	productRating: 5,
-};
-
+let store = usecheckoutChampStore();
+let cart = ref({});
 let stateList = ref({});
 let stateListBilling = ref({});
 let errors = ref({});
 let timer = ref(300);
 let timerExpired = ref(false);
-const cart = ref({
-	subTotal: 0,
-	discount: 0,
-	tax: 0,
-	shipping: 0,
-	total: 0,
-	quantity: 1,
-});
 
 const formData = ref({
 	email: '',
@@ -68,6 +51,7 @@ const formData = ref({
 });
 
 //METHODS;
+const importClick = async () => {};
 
 // TIMER
 const formatTimer = () => {
@@ -119,7 +103,7 @@ const getCurrentStateBilling = () => {
 const handleSubmit = () => {
 	checkValidation();
 	if (checkValidation()) {
-		navigateTo('/thankyou');
+		importClick();
 	}
 };
 
@@ -370,54 +354,46 @@ const validateExpiryDate = (month, year) => {
 };
 
 //CART METHODS
-const changeQuantity = (value) => {
-	if (value === 'add') {
-		cart.value.quantity++;
-	} else {
-		cart.value.quantity--;
-	}
-	calculateSubTotal();
-	calculateTax();
-	calculateTotal();
-};
+// const changeQuantity = (value) => {
+// 	if (value === 'add') {
+// 		cart.value.quantity++;
+// 	} else {
+// 		cart.value.quantity--;
+// 	}
+// 	calculateSubTotal();
+// 	calculateTax();
+// 	calculateTotal();
+// };
 
 const calculateSubTotal = () => {
-	cart.value.subTotal = cart.value.quantity * product.productPrice;
+	cart.value.subTotal = parseFloat(store.cart.reduce((acc, item) => acc + item.totalPrice, 0).toFixed(2));
+	cart.value.shipping = 0;
 };
 
 const calculateTax = () => {
-	cart.value.tax = cart.value.subTotal * 0.1;
+	cart.value.tax = parseFloat((cart.value.subTotal * 0.1).toFixed(2));
 };
 
 const calculateShippingPrice = () => {
-	switch (formData.value.shippingMethod) {
-		case 'flat_rate':
-			cart.value.shipping = 0;
-			break;
-		case 'express':
-			cart.value.shipping = 10;
-			break;
-		case 'overnight':
-			cart.value.shipping = 20;
-			break;
-		default:
-			cart.value.shipping = 0;
-			break;
-	}
-
+	shippingMethods.map((method) => {
+		if (method.shipProfileId == formData.value.shippingMethod) {
+			cart.value.shipping = parseFloat(method.rules[0].shipPrice);
+		}
+	});
 	calculateTotal();
 };
 
 const calculateTotal = () => {
-	cart.value.total = cart.value.subTotal + cart.value.tax + cart.value.shipping - cart.value.discount;
+	if (cart.value.shipping) {
+		cart.value.total = cart.value.subTotal + cart.value.tax + cart.value.shipping;
+	} else {
+		cart.value.total = cart.value.subTotal + cart.value.tax;
+	}
 };
 
 //LIFECYCLE METHODS
 onMounted(() => {
 	formatTimer();
-	calculateSubTotal();
-	calculateTax();
-	calculateTotal();
 
 	//Get Cart Product Based on Product in URL
 	if (useRoute().query.products !== undefined && useRoute().query.products !== '') {
@@ -441,10 +417,16 @@ onMounted(() => {
 					price: getProduct.price,
 					image: getProduct.imageUrl,
 					quantity: productData[1],
+					totalPrice: getProduct.price * productData[1],
 				});
 			}
 		}
+		store.setCartOnStore(myCart);
 	}
+
+	calculateSubTotal();
+	calculateTax();
+	calculateTotal();
 });
 </script>
 
@@ -891,18 +873,21 @@ onMounted(() => {
 							<div class="checkout-cart-design">
 								<div class="cart-details">
 									<div class="row">
-										<p class="text-center p-4 text-bold" v-if="cart.quantity === 0">
-											Cart Is Empty
-										</p>
+										<p class="text-center p-4 text-bold" v-if="!store.cart">Cart Is Empty</p>
 										<table id="kcartTable" style="margin-top: 2px">
 											<tbody>
-												<tr id="kcartDetail">
+												<tr
+													id="kcartDetail"
+													v-for="(cart, index) in store.cart"
+													:key="index"
+													:value="cart.productId"
+												>
 													<td class="product__image">
-														<div class="product-thumbnail" v-if="cart.quantity !== 0">
+														<div class="product-thumbnail">
 															<div class="product-thumbnail__wrapper">
 																<img
 																	class="product-thumbnail__image"
-																	:src="product.productImage"
+																	:src="cart.image"
 																	alt="Product Image"
 																/>
 															</div>
@@ -919,11 +904,11 @@ onMounted(() => {
 															class="product__description__name order-summary__emphasis"
 															style="font-weight: 600; font-size: 18px"
 														>
-															{{ product.productName }}</span
+															{{ cart.title }}</span
 														>
-														<p class="quantity-text">Max Quantity: 3</p>
 													</td>
-													<td class="">
+													<!-- BUTTON FOR QUANTITY INCREASE	 -->
+													<!-- <td class="">
 														<div style="white-space: nowrap">
 															<button
 																class="border-2 px-2 cursor-pointer py-1 rounded-md mr-2"
@@ -939,13 +924,13 @@ onMounted(() => {
 																+
 															</button>
 														</div>
-													</td>
+													</td> -->
 													<td class="product__price disb">
 														<span class="order-summary__emphasis skeleton-while-loading">
 															<span
 																class="kcartItemTotal"
 																style="font-weight: 600; font-size: 18px"
-																>${{ product.productPrice.toFixed(2) }}</span
+																>${{ cart.price }}</span
 															>
 														</span>
 													</td>
@@ -960,24 +945,27 @@ onMounted(() => {
 											<div class="d-flex align-items-center justify-content-between py-2">
 												<dt class="text-base">Sub Total</dt>
 												<dd class="text-base font-medium text-gray-900 productMsrp">
-													${{ cart.subTotal.toFixed(2) }}
+													${{ cart.subTotal }}
 												</dd>
 											</div>
 
-											<div class="d-flex align-items-center justify-content-between py-2">
+											<div
+												class="d-flex align-items-center justify-content-between py-2"
+												v-if="formData.couponCode"
+											>
 												<dt class="text-base">Discount:</dt>
 												<dd
 													class="text-base text-gray-900 font-medium productDiscount"
 													id="discount"
 												>
-													${{ cart.discount.toFixed(2) }}
+													$cart.discount
 												</dd>
 											</div>
 
 											<div class="d-flex align-items-center justify-content-between py-2" i7>
 												<dt class="text-base">Estimated taxes</dt>
 												<dd class="text-base font-medium text-gray-900 productMsrp">
-													${{ cart.tax.toFixed(2) }}
+													$ {{ cart.tax }}
 												</dd>
 											</div>
 
@@ -987,7 +975,7 @@ onMounted(() => {
 													class="text-base text-gray-900 font-medium productDiscount"
 													id="discount"
 												>
-													${{ cart.shipping.toFixed(2) }}
+													$ {{ cart.shipping }}
 												</dd>
 											</div>
 
@@ -999,7 +987,7 @@ onMounted(() => {
 													class="text-base text-green-600 font-bold productDiscount"
 													id="discount"
 												>
-													<strong>${{ cart.total.toFixed(2) }}</strong>
+													<strong>${{ cart.total }}</strong>
 												</dd>
 											</div>
 										</div>
