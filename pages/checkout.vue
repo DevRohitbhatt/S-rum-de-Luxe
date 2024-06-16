@@ -8,10 +8,54 @@ definePageMeta({
 
 // VARIABLES DECLARATION
 const allCampaignData = await getCampaignData();
-const countryList = allCampaignData.countries;
-const shippingMethods = allCampaignData.shipProfiles;
-const couponsList = allCampaignData.coupons;
-const allProducts = allCampaignData.products;
+const countryList = [
+	{
+		countryCode: 'US',
+		countryName: 'United States',
+	},
+	{
+		countryCode: 'CA',
+		countryName: 'Canada',
+	},
+	{
+		countryCode: 'GB',
+		countryName: 'United Kingdom',
+	},
+];
+
+const shippingMethods = [
+	{
+		shipProfileId: 1,
+		profileName: 'Standard Shipping',
+		rules: [
+			{
+				shipPrice: 0,
+			},
+		],
+	},
+	{
+		shipProfileId: 2,
+		profileName: 'Express Shipping',
+		rules: [
+			{
+				shipPrice: 10,
+			},
+		],
+	},
+	{
+		shipProfileId: 3,
+		profileName: 'Overnight Shipping',
+		rules: [
+			{
+				shipPrice: 20,
+			},
+		],
+	},
+];
+// const couponsList = allCampaignData.coupons;
+// const allProducts = allCampaignData.products;
+console.log('allCampaignData', allCampaignData);
+
 let store = usecheckoutChampStore();
 let cart = ref({});
 let stateList = ref({});
@@ -51,7 +95,84 @@ const formData = ref({
 });
 
 //METHODS;
-const importClick = async () => {};
+
+//Get Cart Product Based on Product in URL
+const addProductsFromUrl = () => {
+	if (useRoute().query.products !== undefined && useRoute().query.products !== '') {
+		const urlProducts = useRoute().query.products.split(';');
+		let myCart = [];
+
+		for (const product in urlProducts) {
+			const splitChar =
+				urlProducts[product].indexOf(':') < 0 && urlProducts[product].indexOf(',') > 0 ? ',' : ':';
+			const productData = urlProducts[product].split(splitChar);
+			let getProduct = {};
+			allProducts.map((product) => {
+				if (product.campaignProductId == productData[0]) {
+					getProduct = product;
+				}
+			});
+			if (getProduct.campaignProductId) {
+				myCart.push({
+					productId: getProduct.campaignProductId,
+					title: getProduct.productName,
+					price: getProduct.price,
+					image: getProduct.imageUrl,
+					quantity: productData[1],
+					totalPrice: getProduct.price * productData[1],
+				});
+			}
+		}
+		store.setCartOnStore(myCart);
+	}
+};
+
+const importClick = async () => {
+	const requestUrl = '/api/campaign/importClick';
+	const myHeaders = new Headers();
+	myHeaders.append('Content-Type', 'application/json');
+
+	const importClickQuery = {
+		pagetype: 'checkoutPage',
+		requestUri: getRequestUri(),
+	};
+
+	const requestOptions = {
+		method: 'POST',
+		headers: myHeaders,
+		body: importClickQuery,
+		redirect: 'follow',
+	};
+
+	try {
+		const response = await $fetch(requestUrl, requestOptions);
+		console.log(response);
+		importLead();
+	} catch (error) {
+		throw new Error('Error:', error);
+	}
+};
+
+const importLead = async () => {
+	const requestUrl = '/api/campaign/importLead';
+	const myHeaders = new Headers();
+	myHeaders.append('Content-Type', 'application/json');
+
+	const importLeadQuery = {
+		pagetype: 'checkoutPage',
+		requestUri: getRequestUri(),
+		sessionId: store.sessionId,
+		emailAddress: formData.value.email,
+		phoneNumber: formData.value.phoneNumber,
+	};
+
+	const requestOptions = {
+		method: 'POST',
+		headers: myHeaders,
+		body: importLeadQuery,
+		redirect: 'follow',
+	};
+};
 
 // TIMER
 const formatTimer = () => {
@@ -108,37 +229,37 @@ const handleSubmit = () => {
 };
 
 // SESSION METHODS
-const getSessionData = () => {
-	const requestUri = '/api/sessionData/session';
-	const requestOptions = {
-		method: 'GET',
-		redirect: 'follow',
-	};
+// const getSessionData = () => {
+// 	const requestUri = '/api/sessionData/session';
+// 	const requestOptions = {
+// 		method: 'GET',
+// 		redirect: 'follow',
+// 	};
 
-	const { data } = useFetch(requestUri, requestOptions);
+// 	const { data } = useFetch(requestUri, requestOptions);
 
-	console.log('get-response', data.value);
-};
+// 	console.log('get-response', data.value);
+// };
 
-getSessionData();
+// getSessionData();
 
-const setSessionData = async () => {
-	const requestUri = '/api/sessionData/session';
-	const myHeaders = new Headers();
-	myHeaders.append('Content-Type', 'application/json');
-	const requestOptions = {
-		method: 'POST',
-		headers: myHeaders,
-		body: JSON.stringify(formData.value),
-		redirect: 'follow',
-	};
+// const setSessionData = async () => {
+// 	const requestUri = '/api/sessionData/session';
+// 	const myHeaders = new Headers();
+// 	myHeaders.append('Content-Type', 'application/json');
+// 	const requestOptions = {
+// 		method: 'POST',
+// 		headers: myHeaders,
+// 		body: JSON.stringify(formData.value),
+// 		redirect: 'follow',
+// 	};
 
-	const { data } = await useFetch(requestUri, requestOptions);
-	// const data = await response.json();
-	console.log('response', data.value);
-};
+// 	const { data } = await useFetch(requestUri, requestOptions);
+// 	// const data = await response.json();
+// 	console.log('response', data.value);
+// };
 
-setSessionData();
+// setSessionData();
 
 const checkValidation = () => {
 	let isValid = true;
@@ -394,36 +515,7 @@ const calculateTotal = () => {
 //LIFECYCLE METHODS
 onMounted(() => {
 	formatTimer();
-
-	//Get Cart Product Based on Product in URL
-	if (useRoute().query.products !== undefined && useRoute().query.products !== '') {
-		const urlProducts = useRoute().query.products.split(';');
-		let myCart = [];
-
-		for (const product in urlProducts) {
-			const splitChar =
-				urlProducts[product].indexOf(':') < 0 && urlProducts[product].indexOf(',') > 0 ? ',' : ':';
-			const productData = urlProducts[product].split(splitChar);
-			let getProduct = {};
-			allProducts.map((product) => {
-				if (product.campaignProductId == productData[0]) {
-					getProduct = product;
-				}
-			});
-			if (getProduct.campaignProductId) {
-				myCart.push({
-					productId: getProduct.campaignProductId,
-					title: getProduct.productName,
-					price: getProduct.price,
-					image: getProduct.imageUrl,
-					quantity: productData[1],
-					totalPrice: getProduct.price * productData[1],
-				});
-			}
-		}
-		store.setCartOnStore(myCart);
-	}
-
+	addProductsFromUrl();
 	calculateSubTotal();
 	calculateTax();
 	calculateTotal();

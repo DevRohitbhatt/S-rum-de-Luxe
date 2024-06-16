@@ -1,3 +1,33 @@
+<script setup>
+const store = usecheckoutChampStore();
+store.setPageType('leadPage');
+
+const importClick = async () => {
+	const requestUrl = '/api/campaign/importClick';
+	const myHeaders = new Headers();
+	myHeaders.append('Content-Type', 'application/json');
+
+	const importClickQuery = {
+		pagetype: store.pageType,
+		requestUri: getRequestUri(),
+	};
+
+	const requestOptions = {
+		method: 'POST',
+		headers: myHeaders,
+		body: importClickQuery,
+		redirect: 'follow',
+	};
+
+	const response = await $fetch(requestUrl, requestOptions);
+	console.log(response);
+};
+
+onMounted(() => {
+	importClick();
+});
+</script>
+
 <template>
 	<div>
 		<section id="banner">
@@ -622,8 +652,6 @@
 		</section>
 	</div>
 </template>
-
-<script setup></script>
 
 <style scoped>
 @import url('~/assets/css/style.css');

@@ -1,24 +1,56 @@
 const campaignQueryEndpoint = 'https://api.checkoutchamp.com/campaign/query/?';
 
-export default defineEventHandler(async (event) => {
-	const runtimeConfig = useRuntimeConfig(event);
-	const loginId = runtimeConfig.CC_LOGIN_ID;
-	const password = runtimeConfig.CC_LOGIN_PASSWORD;
-	const campaignId = runtimeConfig.public.CC_CAMPAIGN_ID;
+// const router = createRouter();
 
-	const queryParams = new URLSearchParams();
-	queryParams.append('loginId', loginId);
-	queryParams.append('password', password);
-	queryParams.append('campaignId', campaignId);
+// router.get(
+// 	'/getCampaignData',
+// 	defineEventHandler((event) => {
+// 		const runtimeConfig = useRuntimeConfig(event);
+// 		const loginId = runtimeConfig.CC_LOGIN_ID;
+// 		const password = runtimeConfig.CC_LOGIN_PASSWORD;
+// 		const campaignId = runtimeConfig.public.CC_CAMPAIGN_ID;
 
-	const url = `${campaignQueryEndpoint}${queryParams.toString()}`;
+// 		const queryParams = new URLSearchParams();
+// 		queryParams.append('loginId', loginId);
+// 		queryParams.append('password', password);
+// 		queryParams.append('campaignId', campaignId);
 
-	const response = await $fetch(url, {
-		method: 'GET',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-	});
+// 		console.log('queryParams', queryParams);
 
-	return response;
+// 		const url = `${campaignQueryEndpoint}${queryParams.toString()}`;
+
+// 		const response = await $fetch(url, {
+// 			method: 'GET',
+// 			headers: {
+// 				'Content-Type': 'application/json',
+// 			},
+// 		});
+
+// 		return response;
+// 	})
+// );
+
+export default defineEventHandler((event) => {
+	// const runtimeConfig = useRuntimeConfig(event);
+	// const loginId = runtimeConfig.CC_LOGIN_ID;
+	// const password = runtimeConfig.CC_LOGIN_PASSWORD;
+	// const campaignId = runtimeConfig.public.CC_CAMPAIGN_ID;
+	// const queryParams = new URLSearchParams();
+	// queryParams.append('loginId', loginId);
+	// queryParams.append('password', password);
+	// queryParams.append('campaignId', campaignId);
+
+	// const url = `${campaignQueryEndpoint}${queryParams.toString()}`;
+
+	// console.log(url);
+	// const response = await $fetch(url, {
+	// 	method: 'GET',
+	// 	headers: {
+	// 		'Content-Type': 'application/json',
+	// 	},
+	// });
+	// return response;
+	return {
+		id: 'getCampaignData',
+	};
 });
