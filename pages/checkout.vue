@@ -95,6 +95,7 @@ const addProductsFromUrl = () => {
 	}
 };
 
+// IMPORT CLICK
 const importClick = async () => {
 	const requestUrl = '/api/campaign/importClick';
 	const myHeaders = new Headers();
@@ -122,6 +123,7 @@ const importClick = async () => {
 	}
 };
 
+// IMPORT LEAD
 const importLead = async () => {
 	const requestUrl = '/api/campaign/importLead';
 	const myHeaders = new Headers();
@@ -176,6 +178,7 @@ const importLead = async () => {
 	}
 };
 
+// IMPORT ORDER
 const importOrder = async () => {
 	const requestUrl = '/api/campaign/importOrder';
 	const myHeaders = new Headers();

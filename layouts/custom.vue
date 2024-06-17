@@ -13,7 +13,7 @@
 					<div class="col-md-4"></div>
 					<div class="col-md-4 text-end">
 						<div class="email-id">
-							<a href="mailto:support@sérumdeluxe.com">{{}}</a>
+							<a href="mailto:support@sérumdeluxe.com">{{ useRuntimeConfig().public.email }}</a>
 						</div>
 					</div>
 				</div>
@@ -32,7 +32,10 @@
 					<div class="col-md-3">
 						<h4>Reach us</h4>
 						<ul>
-							<li>Email id : <a href="mailto:support@sérumdeluxe.com">support@sérumdeluxe.com</a></li>
+							<li>
+								Email id :
+								<a href="mailto:support@sérumdeluxe.com">{{ useRuntimeConfig().public.email }}</a>
+							</li>
 						</ul>
 					</div>
 					<div class="col-md-3">
