@@ -1,15 +1,16 @@
 <script setup>
 const store = usecheckoutChampStore();
 store.setPageType('leadPage');
-
 const importClick = async () => {
 	const requestUrl = '/api/campaign/importClick';
 	const myHeaders = new Headers();
+	myHeaders.append('Accept', 'application/json');
 	myHeaders.append('Content-Type', 'application/json');
 
 	const importClickQuery = {
 		pagetype: store.pageType,
 		requestUri: getRequestUri(),
+		sessionId: store.sessionId,
 	};
 
 	const requestOptions = {
@@ -19,8 +20,19 @@ const importClick = async () => {
 		redirect: 'follow',
 	};
 
-	const response = await $fetch(requestUrl, requestOptions);
-	console.log(response);
+	try {
+		const response = await $fetch(requestUrl, requestOptions);
+		const data = JSON.parse(response);
+
+		if (data.result == 'SUCCESS' && data.message.sessionId != undefined) {
+			store.setSessionId(data.message.sessionId);
+			//setSessionData(data.message.sessionId);
+
+			//importLead();
+		}
+	} catch (error) {
+		throw new Error('Error:', error);
+	}
 };
 
 onMounted(() => {
@@ -59,7 +71,9 @@ onMounted(() => {
 								</li>
 							</ul>
 							<div class="cta-btn">
-								<NuxtLink to="/checkout" class="btn">TRY SÉRUM DE LUXE NOW >></NuxtLink>
+								<NuxtLink to="/checkout/?cctester=1&products=92:2" class="btn"
+									>TRY SÉRUM DE LUXE NOW >></NuxtLink
+								>
 							</div>
 							<p class="cta-text">This is a one-time order. This is not a subscription.</p>
 						</div>

@@ -1,3 +1,71 @@
+<script setup>
+definePageMeta({
+	layout: 'custom',
+});
+
+const store = usecheckoutChampStore();
+store.setPageType('thankyouPage');
+
+const importClick = async () => {
+	const requestUrl = '/api/campaign/importClick';
+	const myHeaders = new Headers();
+	myHeaders.append('Accept', 'application/json');
+	myHeaders.append('Content-Type', 'application/json');
+
+	const importClickQuery = {
+		pagetype: store.pageType,
+		requestUri: getRequestUri(),
+		sessionId: store.sessionId,
+	};
+
+	const requestOptions = {
+		method: 'POST',
+		headers: myHeaders,
+		body: importClickQuery,
+		redirect: 'follow',
+	};
+
+	try {
+		const response = await $fetch(requestUrl, requestOptions);
+		const data = await JSON.parse(response);
+		if (data.result == 'SUCCESS') {
+			orderConfirm();
+		}
+	} catch (error) {
+		throw new Error('Error:', error);
+	}
+};
+
+const orderConfirm = async () => {
+	const requestUrl = '/api/campaign/orderConfirm';
+	const myHeaders = new Headers();
+	myHeaders.append('Accept', 'application/json');
+	myHeaders.append('Content-Type', 'application/json');
+
+	const orderConfirmQuery = {
+		orderId: store.orderId,
+	};
+
+	const requestOptions = {
+		method: 'POST',
+		headers: myHeaders,
+		body: orderConfirmQuery,
+		redirect: 'follow',
+	};
+
+	try {
+		const response = await $fetch(requestUrl, requestOptions);
+		const data = await JSON.parse(response);
+	} catch (error) {
+		throw new Error('Error:', error);
+	}
+};
+
+onMounted(() => {
+	importClick();
+});
+</script>
+
 <template>
 	<div>
 		<div class="up-top-hdng">
@@ -47,12 +115,6 @@
 		</div>
 	</div>
 </template>
-
-<script setup>
-definePageMeta({
-	layout: 'custom',
-});
-</script>
 
 <style scoped>
 @import url('~/assets/css/checkout.css');

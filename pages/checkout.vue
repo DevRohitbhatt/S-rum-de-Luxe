@@ -8,53 +8,10 @@ definePageMeta({
 
 // VARIABLES DECLARATION
 const allCampaignData = await getCampaignData();
-const countryList = [
-	{
-		countryCode: 'US',
-		countryName: 'United States',
-	},
-	{
-		countryCode: 'CA',
-		countryName: 'Canada',
-	},
-	{
-		countryCode: 'GB',
-		countryName: 'United Kingdom',
-	},
-];
-
-const shippingMethods = [
-	{
-		shipProfileId: 1,
-		profileName: 'Standard Shipping',
-		rules: [
-			{
-				shipPrice: 0,
-			},
-		],
-	},
-	{
-		shipProfileId: 2,
-		profileName: 'Express Shipping',
-		rules: [
-			{
-				shipPrice: 10,
-			},
-		],
-	},
-	{
-		shipProfileId: 3,
-		profileName: 'Overnight Shipping',
-		rules: [
-			{
-				shipPrice: 20,
-			},
-		],
-	},
-];
-// const couponsList = allCampaignData.coupons;
-// const allProducts = allCampaignData.products;
-console.log('allCampaignData', allCampaignData);
+const countryList = allCampaignData.countries;
+const shippingMethods = allCampaignData.shipProfiles;
+const couponsList = allCampaignData.coupons;
+const allProducts = allCampaignData.products;
 
 let store = usecheckoutChampStore();
 let cart = ref({});
@@ -63,6 +20,7 @@ let stateListBilling = ref({});
 let errors = ref({});
 let timer = ref(300);
 let timerExpired = ref(false);
+store.setPageType('checkoutPage');
 
 const formData = ref({
 	email: '',
@@ -77,6 +35,7 @@ const formData = ref({
 	postalcode: '',
 	shippingMethod: '',
 	couponCode: '',
+	couponDiscount: 0,
 	billSame: 1,
 	billDetails: {
 		billfname: '',
@@ -88,6 +47,7 @@ const formData = ref({
 		billstate: '',
 		billpostalcode: '',
 	},
+	paySource: 'CREDITCARD',
 	creditCardNumber: '',
 	creditCardMonth: '',
 	creditCardYear: '',
@@ -115,11 +75,19 @@ const addProductsFromUrl = () => {
 			if (getProduct.campaignProductId) {
 				myCart.push({
 					productId: getProduct.campaignProductId,
+					variantId: getProduct.variants[0] ? 0 : '',
 					title: getProduct.productName,
-					price: getProduct.price,
+					price:
+						getProduct.variants[0] && getProduct.variants[0].title != undefined
+							? getProduct.variants[0].price
+							: getProduct.price,
 					image: getProduct.imageUrl,
 					quantity: productData[1],
 					totalPrice: getProduct.price * productData[1],
+					variant_title:
+						getProduct.variants[0] && getProduct.variants[0].title != undefined
+							? getProduct.variants[0].title
+							: '',
 				});
 			}
 		}
@@ -130,11 +98,13 @@ const addProductsFromUrl = () => {
 const importClick = async () => {
 	const requestUrl = '/api/campaign/importClick';
 	const myHeaders = new Headers();
+	myHeaders.append('Accept', 'application/json');
 	myHeaders.append('Content-Type', 'application/json');
 
 	const importClickQuery = {
-		pagetype: 'checkoutPage',
+		pagetype: store.pageType,
 		requestUri: getRequestUri(),
+		sessionId: store.sessionId,
 	};
 
 	const requestOptions = {
@@ -146,8 +116,7 @@ const importClick = async () => {
 
 	try {
 		const response = await $fetch(requestUrl, requestOptions);
-		console.log(response);
-		importLead();
+		//importLead();
 	} catch (error) {
 		throw new Error('Error:', error);
 	}
@@ -156,6 +125,7 @@ const importClick = async () => {
 const importLead = async () => {
 	const requestUrl = '/api/campaign/importLead';
 	const myHeaders = new Headers();
+	myHeaders.append('Accept', 'application/json');
 	myHeaders.append('Content-Type', 'application/json');
 
 	const importLeadQuery = {
@@ -164,7 +134,27 @@ const importLead = async () => {
 		sessionId: store.sessionId,
 		emailAddress: formData.value.email,
 		phoneNumber: formData.value.phoneNumber,
+		firstName: formData.value.fname,
+		lastName: formData.value.lname,
+		address1: formData.value.address_1,
+		address2: formData.value.address_2,
+		city: formData.value.city,
+		country: formData.value.country,
+		state: formData.value.state,
+		postalCode: formData.value.postalcode,
+		shipProfileId: formData.value.shippingMethod,
 	};
+
+	if (formData.value.billSame == 0) {
+		importLeadQuery.shipFirstName = formData.value.billDetails.billfname;
+		importLeadQuery.shipLastName = formData.value.billDetails.billlname;
+		importLeadQuery.shipAddress1 = formData.value.billDetails.billaddress_1;
+		importLeadQuery.shipAddress2 = formData.value.billDetails.billaddress_2;
+		importLeadQuery.shipCity = formData.value.billDetails.billcity;
+		importLeadQuery.shipCountry = formData.value.billDetails.billcountry;
+		importLeadQuery.shipState = formData.value.billDetails.billstate;
+		importLeadQuery.shipPostalCode = formData.value.billDetails.billpostalcode;
+	}
 
 	const requestOptions = {
 		method: 'POST',
@@ -172,6 +162,95 @@ const importLead = async () => {
 		body: importLeadQuery,
 		redirect: 'follow',
 	};
+
+	try {
+		const response = await $fetch(requestUrl, requestOptions);
+		const data = await JSON.parse(response);
+		if (data.result == 'SUCCESS') {
+			store.setCustomerId(data.message.customerId);
+			store.setOrderId(data.message.orderId);
+			importOrder();
+		}
+	} catch (error) {
+		throw new Error('Error:', error);
+	}
+};
+
+const importOrder = async () => {
+	const requestUrl = '/api/campaign/importOrder';
+	const myHeaders = new Headers();
+	myHeaders.append('Accept', 'application/json');
+	myHeaders.append('Content-Type', 'application/json');
+
+	const importOrderQuery = {
+		sessionId: store.sessionId,
+		customerId: store.customerId,
+		orderId: store.orderId,
+		paySource: formData.value.paySource == 'CREDITCARD' ? 'CREDITCARD' : 'PAYPAL',
+		emailAddress: formData.value.email,
+		phoneNumber: formData.value.phoneNumber,
+		firstName: formData.value.fname,
+		lastName: formData.value.lname,
+		address1: formData.value.address_1,
+		address2: formData.value.address_2,
+		city: formData.value.city,
+		country: formData.value.country,
+		state: formData.value.state,
+		postalCode: formData.value.postalcode,
+		shipProfileId: formData.value.shippingMethod,
+		couponCode: formData.value.couponCode,
+	};
+
+	if (formData.value.billSame == 1) {
+		importOrderQuery.shipFirstName = formData.value.fname;
+		importOrderQuery.shipLastName = formData.value.lname;
+		importOrderQuery.shipAddress1 = formData.value.address_1;
+		importOrderQuery.shipAddress2 = formData.value.address_2;
+		importOrderQuery.shipCity = formData.value.city;
+		importOrderQuery.shipCountry = formData.value.country;
+		importOrderQuery.shipState = formData.value.state;
+		importOrderQuery.shipPostalCode = formData.value.postalcode;
+	} else {
+		importOrderQuery.shipFirstName = formData.value.billDetails.billfname;
+		importOrderQuery.shipLastName = formData.value.billDetails.billlname;
+		importOrderQuery.shipAddress1 = formData.value.billDetails.billaddress_1;
+		importOrderQuery.shipAddress2 = formData.value.billDetails.billaddress_2;
+		importOrderQuery.shipCity = formData.value.billDetails.billcity;
+		importOrderQuery.shipCountry = formData.value.billDetails.billcountry;
+		importOrderQuery.shipState = formData.value.billDetails.billstate;
+		importOrderQuery.shipPostalCode = formData.value.billDetails.billpostalcode;
+	}
+
+	if (formData.value.paySource == 'CREDITCARD') {
+		importOrderQuery.cardNumber = formData.value.creditCardNumber.replace(/\s/g, '');
+		importOrderQuery.cardMonth = formData.value.creditCardMonth;
+		importOrderQuery.cardYear = formData.value.creditCardYear;
+		importOrderQuery.cardSecurityCode = formData.value.creditCardCVV;
+	}
+
+	//Products
+	store.cart.map((product, index) => {
+		importOrderQuery[`product${index + 1}_id`] = product.productId;
+		importOrderQuery[`product${index + 1}_qty`] = product.quantity;
+		importOrderQuery[`variant${index + 1}_id`] = product.variantId;
+	});
+
+	const requestOptions = {
+		method: 'POST',
+		headers: myHeaders,
+		body: importOrderQuery,
+		redirect: 'follow',
+	};
+
+	try {
+		const response = await $fetch(requestUrl, requestOptions);
+		const data = await JSON.parse(response);
+		if (data.result == 'SUCCESS') {
+			navigateTo('/thankyou');
+		}
+	} catch (error) {
+		throw new Error('Error:', error);
+	}
 };
 
 // TIMER
@@ -222,10 +301,10 @@ const getCurrentStateBilling = () => {
 };
 
 const handleSubmit = () => {
-	checkValidation();
-	if (checkValidation()) {
-		importClick();
-	}
+	validateCouponCode();
+	// if (checkValidation()) {
+	// }
+	importLead();
 };
 
 // SESSION METHODS
@@ -474,6 +553,29 @@ const validateExpiryDate = (month, year) => {
 	return true;
 };
 
+// Validate Coupon Code
+const validateCouponCode = () => {
+	let couponCode = ref('');
+	Object.entries(couponsList).forEach(([key, value]) => {
+		if (value.couponCode == formData.value.couponCode) {
+			couponCode.value = value;
+		}
+	});
+
+	if (couponCode.value != '') {
+		if (couponCode.value.discountType == 'PERCENT') {
+			formData.value.couponDiscount = (cart.value.subTotal * couponCode.value.discountPerc).toFixed(2);
+		} else {
+			formData.value.couponDiscount = couponCode.discountPrice;
+		}
+
+		calculateTotal();
+	} else {
+		formData.value.couponDiscount = 0;
+		calculateTotal();
+	}
+};
+
 //CART METHODS
 // const changeQuantity = (value) => {
 // 	if (value === 'add') {
@@ -491,10 +593,6 @@ const calculateSubTotal = () => {
 	cart.value.shipping = 0;
 };
 
-const calculateTax = () => {
-	cart.value.tax = parseFloat((cart.value.subTotal * 0.1).toFixed(2));
-};
-
 const calculateShippingPrice = () => {
 	shippingMethods.map((method) => {
 		if (method.shipProfileId == formData.value.shippingMethod) {
@@ -506,18 +604,18 @@ const calculateShippingPrice = () => {
 
 const calculateTotal = () => {
 	if (cart.value.shipping) {
-		cart.value.total = cart.value.subTotal + cart.value.tax + cart.value.shipping;
+		cart.value.total = (cart.value.subTotal + cart.value.shipping - formData.value.couponDiscount).toFixed(2);
 	} else {
-		cart.value.total = cart.value.subTotal + cart.value.tax;
+		cart.value.total = (cart.value.subTotal - formData.value.couponDiscount).toFixed(2);
 	}
 };
 
 //LIFECYCLE METHODS
 onMounted(() => {
+	importClick();
 	formatTimer();
 	addProductsFromUrl();
 	calculateSubTotal();
-	calculateTax();
 	calculateTotal();
 });
 </script>
@@ -718,6 +816,7 @@ onMounted(() => {
 											name="couponCode"
 											placeholder="Coupon Code"
 											v-model="formData.couponCode"
+											@input="validateCouponCode"
 											class="secss form-control"
 										/>
 									</div>
@@ -1041,25 +1140,22 @@ onMounted(() => {
 												</dd>
 											</div>
 
-											<div
-												class="d-flex align-items-center justify-content-between py-2"
-												v-if="formData.couponCode"
-											>
+											<div class="d-flex align-items-center justify-content-between py-2">
 												<dt class="text-base">Discount:</dt>
 												<dd
 													class="text-base text-gray-900 font-medium productDiscount"
 													id="discount"
 												>
-													$cart.discount
+													${{ formData.couponDiscount }}
 												</dd>
 											</div>
 
-											<div class="d-flex align-items-center justify-content-between py-2" i7>
+											<!-- <div class="d-flex align-items-center justify-content-between py-2" i7>
 												<dt class="text-base">Estimated taxes</dt>
 												<dd class="text-base font-medium text-gray-900 productMsrp">
 													$ {{ cart.tax }}
 												</dd>
-											</div>
+											</div> -->
 
 											<div class="d-flex align-items-center justify-content-between py-2">
 												<dt class="text-base">Shipping</dt>

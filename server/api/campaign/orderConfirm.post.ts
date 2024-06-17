@@ -1,4 +1,4 @@
-const importClickEndpoint = 'https://api.checkoutchamp.com/landers/clicks/import/?';
+const orderConfirmEndpoint = 'https://api.checkoutchamp.com/order/confirm/?';
 
 export default defineEventHandler(async (event) => {
 	const data = await readBody(event);
@@ -10,18 +10,15 @@ export default defineEventHandler(async (event) => {
 	queryParams.append('loginId', loginId);
 	queryParams.append('password', password);
 	queryParams.append('campaignId', campaignId);
-	queryParams.append('pageType', data.pagetype);
-	queryParams.append('requestUri', data.requestUri);
-	queryParams.append('sessionId', data.sessionId);
+	queryParams.append('orderId', data.orderId);
 
-	const url = `${importClickEndpoint}${queryParams.toString()}`;
+	const url = `${orderConfirmEndpoint}${queryParams.toString()}`;
 
 	const response = await $fetch(url, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
 		},
-		body: '',
 	});
 
 	return response;
