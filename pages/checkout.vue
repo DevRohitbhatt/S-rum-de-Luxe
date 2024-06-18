@@ -305,9 +305,8 @@ const getCurrentStateBilling = () => {
 
 const handleSubmit = () => {
 	validateCouponCode();
-	// if (checkValidation()) {
-	// }
-	importLead();
+	 if (checkValidation()) {
+	importLead(); }
 };
 
 // SESSION METHODS
