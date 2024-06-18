@@ -26,9 +26,6 @@ const importClick = async () => {
 
 		if (data.result == 'SUCCESS' && data.message.sessionId != undefined) {
 			store.setSessionId(data.message.sessionId);
-			//setSessionData(data.message.sessionId);
-
-			//importLead();
 		}
 	} catch (error) {
 		throw new Error('Error:', error);

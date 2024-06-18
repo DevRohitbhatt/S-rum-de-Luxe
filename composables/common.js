@@ -19,3 +19,21 @@ export const getRequestUri = () => {
 		window.location.hash
 	);
 };
+
+// export const setSessionData = async (data) => {
+// 	const requestUri = '/api/session/setSessionData';
+// 	const myHeaders = new Headers();
+// 	myHeaders.append('Content-Type', 'application/json');
+// 	const requestOptions = {
+// 		method: 'POST',
+// 		headers: myHeaders,
+// 		body: data,
+// 		redirect: 'follow',
+// 	};
+
+// 	const response = await $fetch(requestUri, requestOptions);
+// 	// const data = await response.json();
+// 	console.log('response', response);
+
+// 	return response;
+// };

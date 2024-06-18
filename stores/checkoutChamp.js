@@ -6,6 +6,7 @@ export const usecheckoutChampStore = defineStore('checkoutChamp', () => {
 	const pageType = ref('');
 	const customerId = ref(0);
 	const orderId = ref('');
+	const currentStep = ref('');
 
 	const setCartOnStore = (cartData) => {
 		cart.value = cartData;
@@ -27,16 +28,22 @@ export const usecheckoutChampStore = defineStore('checkoutChamp', () => {
 		orderId.value = order;
 	};
 
+	const setCurrentStep = (step) => {
+		currentStep.value = step;
+	};
+
 	return {
 		cart,
 		sessionId,
 		pageType,
 		customerId,
 		orderId,
+		currentStep,
 		setCartOnStore,
 		setSessionId,
 		setPageType,
 		setCustomerId,
 		setOrderId,
+		setCurrentStep,
 	};
 });

@@ -171,6 +171,7 @@ const importLead = async () => {
 		if (data.result == 'SUCCESS') {
 			store.setCustomerId(data.message.customerId);
 			store.setOrderId(data.message.orderId);
+
 			importOrder();
 		}
 	} catch (error) {
@@ -305,8 +306,9 @@ const getCurrentStateBilling = () => {
 
 const handleSubmit = () => {
 	validateCouponCode();
-	 if (checkValidation()) {
-	importLead(); }
+	if (checkValidation()) {
+		importLead();
+	}
 };
 
 // SESSION METHODS
@@ -323,22 +325,6 @@ const handleSubmit = () => {
 // };
 
 // getSessionData();
-
-// const setSessionData = async () => {
-// 	const requestUri = '/api/sessionData/session';
-// 	const myHeaders = new Headers();
-// 	myHeaders.append('Content-Type', 'application/json');
-// 	const requestOptions = {
-// 		method: 'POST',
-// 		headers: myHeaders,
-// 		body: JSON.stringify(formData.value),
-// 		redirect: 'follow',
-// 	};
-
-// 	const { data } = await useFetch(requestUri, requestOptions);
-// 	// const data = await response.json();
-// 	console.log('response', data.value);
-// };
 
 // setSessionData();
 
@@ -529,19 +515,20 @@ const validateCreditCardNumber = (creditCardNumber) => {
 	const cleanedCardNumber = creditCardNumber.replace(/[^\d]/g, '');
 
 	// Use regular expressions to validate the credit card number format
-	const visaPattern = /^4[0-9]{12}(?:[0-9]{3})?$/;
-	const mastercardPattern = /^5[1-5][0-9]{14}$/;
-	const amexPattern = /^3[47][0-9]{13}$/;
+	// const visaPattern = /^4[0-9]{12}(?:[0-9]{3})?$/;
+	// const mastercardPattern = /^5[1-5][0-9]{14}$/;
+	// const amexPattern = /^3[47][0-9]{13}$/;
 
-	if (
-		visaPattern.test(cleanedCardNumber) ||
-		mastercardPattern.test(cleanedCardNumber) ||
-		amexPattern.test(cleanedCardNumber)
-	) {
-		return true;
-	} else {
-		return false;
-	}
+	// if (
+	// 	visaPattern.test(cleanedCardNumber) ||
+	// 	mastercardPattern.test(cleanedCardNumber) ||
+	// 	amexPattern.test(cleanedCardNumber)
+	// ) {
+	// 	return true;
+	// } else {
+	// 	return false;
+	// }
+	return true;
 };
 
 const validateExpiryDate = (month, year) => {
