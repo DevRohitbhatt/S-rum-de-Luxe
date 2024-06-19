@@ -1,5 +1,12 @@
 export const getCampaignData = async () => {
 	const campaignId = useRuntimeConfig().public.CC_CAMPAIGN_ID;
+	const secretKey = useRuntimeConfig().public.SECRET_KEY;
+	const shift = 3;
+	const encrypted = encrypt(secretKey, shift);
+	const myHeaders = new Headers();
+	myHeaders.append('key', 'value');
+	myHeaders.append('Authorization', encrypted);
+
 	try {
 		const { data } = await useFetch('/api/campaign/getCampaignData');
 		return JSON.parse(data.value).message.data[campaignId];

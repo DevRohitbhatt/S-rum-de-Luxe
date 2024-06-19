@@ -73,6 +73,10 @@ const addProductsFromUrl = () => {
 				}
 			});
 			if (getProduct.campaignProductId) {
+				const totalPrice =
+					getProduct.variants[0] && getProduct.variants[0].title != undefined
+						? getProduct.variants[0].price * productData[1]
+						: getProduct.price * productData[1];
 				myCart.push({
 					productId: getProduct.campaignProductId,
 					variantId: getProduct.variants[0] ? 0 : '',
@@ -83,7 +87,7 @@ const addProductsFromUrl = () => {
 							: getProduct.price,
 					image: getProduct.imageUrl,
 					quantity: productData[1],
-					totalPrice: getProduct.price * productData[1],
+					totalPrice: totalPrice,
 					variant_title:
 						getProduct.variants[0] && getProduct.variants[0].title != undefined
 							? getProduct.variants[0].title
@@ -513,6 +517,8 @@ const validatePhoneNumber = (phoneNumber) => {
 
 const validateCreditCardNumber = (creditCardNumber) => {
 	const cleanedCardNumber = creditCardNumber.replace(/[^\d]/g, '');
+	//const number = card.parse(cleanedCardNumber);
+	// console.log('number', number);
 
 	// Use regular expressions to validate the credit card number format
 	// const visaPattern = /^4[0-9]{12}(?:[0-9]{3})?$/;
