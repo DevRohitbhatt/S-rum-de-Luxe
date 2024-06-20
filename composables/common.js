@@ -21,6 +21,12 @@ export const getCampaignData = async () => {
 	}
 };
 
+export const getIpAddress = async () => {
+	const res = await $fetch('https://api.ipify.org?format=json');
+
+	return res.ip;
+};
+
 export const getRequestUri = () => {
 	return (
 		window.location.protocol +
@@ -51,6 +57,16 @@ export const getRequestUri = () => {
 // 	return response;
 // };
 
+// Function to hash data using SHA-256
+export const hashSHA256 = async (data) => {
+	const encoder = new TextEncoder();
+	const dataBuffer = encoder.encode(data);
+	const hashBuffer = await crypto.subtle.digest('SHA-256', dataBuffer);
+	const hashArray = Array.from(new Uint8Array(hashBuffer));
+	return hashArray.map((byte) => byte.toString(16).padStart(2, '0')).join('');
+};
+
+// Encrypt getCampaignData
 const encrypt = (text, shift) => {
 	const encryptedText = text + '';
 	return encryptedText

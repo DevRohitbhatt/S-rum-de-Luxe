@@ -96,6 +96,7 @@ const addProductsFromUrl = () => {
 			}
 		}
 		store.setCartOnStore(myCart);
+		capiCheckout(myCart);
 	}
 };
 
@@ -260,6 +261,96 @@ const importOrder = async () => {
 		throw new Error('Error:', error);
 	}
 };
+
+const capiCheckout = async (orderObj) => {
+	const requestUrl = '/api/facebook/facebookApi';
+
+	const hashedEmail = await hashSHA256('testemail@gmail.com');
+	const hashedPhoneNumber = await hashSHA256(12345679890);
+	const myHeaders = new Headers();
+	myHeaders.append('Accept', 'application/json');
+	myHeaders.append('Content-Type', 'application/json');
+
+	const data = [
+		{
+			event_name: 'Checkout',
+			event_time: Math.floor(new Date() / 1000),
+			event_id: 1,
+			event_source_url: getRequestUri(),
+			action_source: 'website',
+			user_data: {
+				client_ip_address: await getIpAddress(),
+				em: hashedEmail,
+				ph: hashedPhoneNumber,
+			},
+			custom_data: {
+				total: cart.value,
+				currency: orderObj.currencyCode != undefined ? orderObj.currencyCode : 'USD',
+				item: orderObj,
+			},
+		},
+	];
+
+	const requestOptions = {
+		method: 'POST',
+		headers: myHeaders,
+		body: data,
+		redirect: 'follow',
+	};
+
+	try {
+		const response = await $fetch(requestUrl, requestOptions);
+		console.log('response', response);
+	} catch (error) {
+		throw new Error(error);
+	}
+};
+
+const capiAddToCart = async () => {
+	const requestUrl = '/api/facebook/facebookApi';
+
+	const hashedEmail = await hashSHA256('test@gmail.com');
+	const hashedPhoneNumber = await hashSHA256('1234567890');
+	const myHeaders = new Headers();
+	myHeaders.append('Accept', 'application/json');
+	myHeaders.append('Content-Type', 'application/json');
+
+	const data = [
+		{
+			event_name: 'AddToCart',
+			event_time: Math.floor(new Date() / 1000),
+			event_id: 2,
+			event_source_url: getRequestUri(),
+			action_source: 'website',
+			user_data: {
+				client_ip_address: await getIpAddress(),
+				em: hashedEmail,
+				ph: hashedPhoneNumber,
+			},
+			custom_data: {
+				total: cart.value.total,
+				//currency: orderObj.currencyCode != undefined ? orderObj.currencyCode : 'USD',
+				//item: orderObj,
+			},
+		},
+	];
+
+	const requestOptions = {
+		method: 'POST',
+		headers: myHeaders,
+		body: data,
+		redirect: 'follow',
+	};
+
+	try {
+		let response = await $fetch(requestUrl, requestOptions);
+		console.log('response', response);
+	} catch (error) {
+		throw new Error(error);
+	}
+};
+
+capiAddToCart();
 
 // TIMER
 const formatTimer = () => {

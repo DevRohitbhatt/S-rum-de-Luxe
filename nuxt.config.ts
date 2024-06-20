@@ -30,6 +30,9 @@ export default defineNuxtConfig({
 	runtimeConfig: {
 		CC_LOGIN_ID: 'revbdevdsg.helikon',
 		CC_LOGIN_PASSWORD: 'yk5Z549ZN2KFz',
+		APP_ID: '2135915516795727',
+		access_token:
+			'EAANzEa0MPNUBO1FvgGaZBzXBLRf2mAdibX2ZAtjOD6Caf0ZAxi6RVIZAaTLpg9ROMS1t6i3o9AZCnJZAWSdyOOD772whIkEYh6CoFeHKyrC90abWEpEwPQkNUtJyG4ihZAZBSESS9mQT3IoKHg7tNEwCaKIbC12Qh20ouob9YQcZAC0UQEi56xmODZAydQDadIjrc0CwZDZD',
 		public: {
 			CC_CAMPAIGN_ID: '4',
 			SECRET_KEY: 'darkAngle',
