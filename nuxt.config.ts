@@ -24,7 +24,11 @@ export default defineNuxtConfig({
 					href: 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200',
 				},
 			],
-			script: [],
+			script: [
+				{
+					src: 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js',
+				},
+			],
 		},
 	},
 	runtimeConfig: {
