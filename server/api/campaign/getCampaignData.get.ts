@@ -1,23 +1,25 @@
-const campaignQueryEndpoint = 'https://api.checkoutchamp.com/campaign/query/?';
+//const campaignQueryEndpoint = 'https://api.checkoutchamp.com/campaign/query/?';
+import config from '../config';
 
 export default defineEventHandler(async (event) => {
-	const runtimeConfig = useRuntimeConfig(event);
-	const loginId = runtimeConfig.CC_LOGIN_ID;
-	const password = runtimeConfig.CC_LOGIN_PASSWORD;
-	const campaignId = runtimeConfig.public.CC_CAMPAIGN_ID;
-	const queryParams = new URLSearchParams();
-	queryParams.append('loginId', loginId);
-	queryParams.append('password', password);
-	queryParams.append('campaignId', campaignId);
+	// const runtimeConfig = useRuntimeConfig(event);
+	// const loginId = runtimeConfig.CC_LOGIN_ID;
+	// const password = runtimeConfig.CC_LOGIN_PASSWORD;
+	// const campaignId = runtimeConfig.public.CC_CAMPAIGN_ID;
+	// const queryParams = new URLSearchParams();
+	// queryParams.append('loginId', loginId);
+	// queryParams.append('password', password);
+	// queryParams.append('campaignId', campaignId);
 
-	const url = `${campaignQueryEndpoint}${queryParams.toString()}`;
+	// const url = `${campaignQueryEndpoint}${queryParams.toString()}`;
 
-	const response = await $fetch(url, {
-		method: 'GET',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-	});
+	// const response = await $fetch(url, {
+	// 	method: 'GET',
+	// 	headers: {
+	// 		'Content-Type': 'application/json',
+	// 	},
+	// });
 
-	return response;
+	const ccRes = config.getCampaignData4;
+	return ccRes;
 });

@@ -19,6 +19,9 @@ body {
     text-decoration: none;
 }
 
+a.logo img {
+    width: 200px !important;
+}
 #kcartDetail button.border-2.px-2.cursor-pointer.py-1.rounded-md.mr-2 {
     border: 1px solid #919191;
     margin: 10px;
@@ -300,7 +303,7 @@ img.product-thumbnail__image {
 }
 
 .formbody .alert-primary {
-	background: #ab8d65;
+	background: #f1592c;
 	border: none;
 	color: #fff !important;
 }

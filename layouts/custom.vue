@@ -7,7 +7,7 @@
 				<div class="row d-flex align-items-center">
 					<div class="col-md-4">
 						<div class="header-logo">
-							<h2><NuxtLink class="logo-text" to="/">Sérum de Luxe</NuxtLink></h2>
+							<h2><NuxtLink class="logo" to="/"><img src="/images/Logo.png"alt="logo"></NuxtLink></h2>
 						</div>
 					</div>
 					<div class="col-md-4"></div>

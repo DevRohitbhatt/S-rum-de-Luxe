@@ -6,7 +6,9 @@
 body {
 	font-family: 'Jost', sans-serif;
 }
-
+.logo img {
+	width: 200px;
+}
 /*TOP BAR*/
 
 #top-bar {
@@ -23,35 +25,36 @@ body {
 /*HEADER AREA*/
 
 #header {
-	background: #ab8d65;
+	background: #ffffff;
 	color: #fff;
 	padding: 10px 0;
 	text-align: center;
 }
 
 .header-logo .logo-text {
-    color: #000 !important;
-    text-decoration: none;
+	color: #000 !important;
+	text-decoration: none;
 }
 
 #kcartDetail button.border-2.px-2.cursor-pointer.py-1.rounded-md.mr-2 {
-    border: 1px solid #919191;
-    margin: 10px;
-    border-radius: 5px;
+	border: 1px solid #919191;
+	margin: 10px;
+	border-radius: 5px;
 }
 
-#kcartDetail button.border-2.px-2.cursor-pointer.py-1.rounded-md.ml-2{
+#kcartDetail button.border-2.px-2.cursor-pointer.py-1.rounded-md.ml-2 {
 	border: 1px solid #919191;
-    margin: 10px;
-    border-radius: 5px;
+	margin: 10px;
+	border-radius: 5px;
 }
 
 /*BANNER AREA*/
 
 #banner {
-	background: #fff;
+	background: #f1592c;
 	padding: 50px 0 0 0;
 	position: relative;
+	color: #fff;
 }
 
 .check-icon {
@@ -86,7 +89,7 @@ body {
 }
 
 #banner .cta-btn .btn {
-	background: #46b500;
+	background: #000000;
 	padding: 15px 30px;
 	color: #fff;
 	font-weight: 700;
@@ -109,16 +112,20 @@ p.cta-text {
 /*TESTIMONIAL AREA*/
 
 section#testimonial {
-	background: #fff1d8;
+	background: #fcddd4;
+}
+.f-logo img {
+	width: 200px;
 }
 
 section#testimonial .container {
-	background: #fff;
+	background: #000000;
 	border-radius: 30px;
 	box-shadow: 0px 2px 17px 8px #00000038;
 	margin-top: -90px;
 	position: relative;
 	padding: 15px 140px;
+	color: #fff;
 }
 
 .profile-pic {
@@ -151,7 +158,7 @@ h3.testi-head {
 /*MEDIA SECTION*/
 
 #media {
-	background: #fff1d8;
+	background: #fcddd4;
 	padding: 40px 0;
 }
 
@@ -204,7 +211,7 @@ section#why-buy {
 }
 
 .why-middle-sec .cta-btn .btn {
-	background: #46b500;
+	background: #000000;
 	padding: 15px 30px;
 	color: #fff;
 	font-weight: 700;
@@ -228,7 +235,7 @@ section#why-buy {
 /*RESULTS SECTION*/
 
 section#results {
-	background: #fff1d8;
+	background: #fcddd4;
 	padding: 55px 0;
 }
 
@@ -249,7 +256,7 @@ section#star-sec {
 /*SAVE TIME SECTION*/
 
 section#save-time {
-	background: #fff1d8;
+	background: #fcddd4;
 	padding: 55px 0 0 0;
 }
 
@@ -273,7 +280,7 @@ section#feature {
 /*MONEY BACK SECTION*/
 
 .money-back {
-	background: #fff1d8;
+	background: #000000;
 	border-radius: 30px;
 	box-shadow: 0px 0px 18px #33333369;
 	padding: 30px 50px;
@@ -283,7 +290,7 @@ section#feature {
 }
 
 section#feature .cta-btn .btn {
-	background: #46b500;
+	background: #f1592c;
 	padding: 15px 30px;
 	color: #fff;
 	font-weight: 700;
@@ -298,10 +305,12 @@ section#feature .cta-btn .btn {
 .row.money-back h3 {
 	font-weight: 600;
 	margin: 0;
+	color: #fff;
 }
 
 .row.money-back p {
 	margin-top: 20px;
+	color: #fff;
 }
 
 /*ELEMINATE SECTION*/
@@ -334,7 +343,7 @@ section#ingredients h2 {
 }
 
 section#ingredients .cta-btn .btn {
-	background: #46b500;
+	background: #000000;
 	padding: 15px 30px;
 	color: #fff;
 	font-weight: 700;
@@ -368,7 +377,7 @@ section#options h3 {
 }
 
 span.pink-highlight {
-	background: #ab8d65;
+	background: #f38a69;
 	color: #fff;
 }
 
@@ -390,7 +399,7 @@ section#questions h2 {
 }
 
 section#questions .accordion-button:not(.collapsed) {
-	color: #ab8d65;
+	color: #f1592c;
 	background-color: #ffffff;
 	box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.125);
 	font-size: 20px;
@@ -459,7 +468,7 @@ section#footer {
 
 @media (min-width: 300px) and (max-width: 580px) {
 	#banner {
-		background: #ffffff;
+		background: #f1592c;
 		padding: 20px 0 0 0;
 		position: relative;
 	}
@@ -484,7 +493,7 @@ section#footer {
 	}
 
 	#banner .cta-btn .btn {
-		background: #46b500;
+		background: #000000;
 		padding: 15px 30px;
 		color: #fff;
 		font-weight: 700;
@@ -507,12 +516,13 @@ section#footer {
 	}
 
 	section#testimonial .container {
-		background: #fff;
+		background: #000000;
 		border-radius: 30px;
 		box-shadow: 0px 2px 17px 8px #00000038;
 		margin-top: -90px;
 		position: relative;
 		padding: 15px 20px;
+		color: #fff;
 	}
 
 	#media h2 {
@@ -543,7 +553,7 @@ section#footer {
 	}
 
 	.why-middle-sec .cta-btn .btn {
-		background: #46b500;
+		background: #000000;
 		padding: 15px 30px;
 		color: #fff;
 		font-weight: 700;
@@ -552,7 +562,7 @@ section#footer {
 	}
 
 	section#results {
-		background: #fff1d8;
+		background: #fcddd4;
 		padding: 25px 0;
 	}
 
@@ -573,7 +583,7 @@ section#footer {
 	}
 
 	section#save-time {
-		background: #fff1d8;
+		background: #fcddd4;
 		padding: 15px 0 0 0;
 	}
 
@@ -590,7 +600,7 @@ section#footer {
 	}
 
 	.money-back {
-		background: #fff1d8;
+		background: #000000;
 		border-radius: 30px;
 		box-shadow: 0px 0px 18px #33333369;
 		padding: 20px 15px;
@@ -599,7 +609,7 @@ section#footer {
 		margin: 20px auto;
 	}
 	section#feature .cta-btn .btn {
-		background: #46b500;
+		background: #f1592c;
 		padding: 15px 20px;
 		color: #fff;
 		font-weight: 700;
@@ -610,7 +620,7 @@ section#footer {
 	}
 
 	#eleminate {
-		background: #fff1d8;
+		background: #fcddd4;
 		background-size: 100%;
 		padding: 35px 0;
 		background-position: center center;
@@ -621,7 +631,7 @@ section#footer {
 	}
 
 	section#ingredients .cta-btn .btn {
-		background: #46b500;
+		background: #000000;
 		padding: 15px 30px;
 		color: #fff;
 		font-weight: 700;
@@ -632,7 +642,7 @@ section#footer {
 
 	section#options {
 		padding: 35px 0;
-		background: #fff8eb;
+		background: #fcddd4;
 		background-size: 100%;
 		background-position: center center;
 	}

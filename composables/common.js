@@ -15,7 +15,7 @@ export const getCampaignData = async () => {
 
 	try {
 		const response = await $fetch('/api/campaign/getCampaignData', requestOptions);
-		return JSON.parse(response).message.data[campaignId];
+		return response.message.data[campaignId];
 	} catch (err) {
 		console.error('Error fetching campaign data: ', err);
 	}

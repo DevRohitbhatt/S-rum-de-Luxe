@@ -20,7 +20,7 @@ export default defineNuxtConfig({
 					href: 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css',
 				},
 				{
-					rel: 'stylesheet',
+					rel: 'preload',
 					href: 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200',
 				},
 			],
@@ -32,8 +32,8 @@ export default defineNuxtConfig({
 		},
 	},
 	runtimeConfig: {
-		CC_LOGIN_ID: 'revbdevdsg.helikon',
-		CC_LOGIN_PASSWORD: 'yk5Z549ZN2KFz',
+		CC_LOGIN_ID: '',
+		CC_LOGIN_PASSWORD: '',
 		APP_ID: '2135915516795727',
 		access_token:
 			'EAANzEa0MPNUBO1FvgGaZBzXBLRf2mAdibX2ZAtjOD6Caf0ZAxi6RVIZAaTLpg9ROMS1t6i3o9AZCnJZAWSdyOOD772whIkEYh6CoFeHKyrC90abWEpEwPQkNUtJyG4ihZAZBSESS9mQT3IoKHg7tNEwCaKIbC12Qh20ouob9YQcZAC0UQEi56xmODZAydQDadIjrc0CwZDZD',
