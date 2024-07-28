@@ -8,7 +8,7 @@
 
 		<section id="header">
 			<div class="container">
-				<div class="logo"><img src="/images/Logo.png" alt="logo"></div>
+				<div class="logo"><img src="/images/logo.png" alt="logo" /></div>
 			</div>
 		</section>
 
@@ -16,9 +16,9 @@
 
 		<section id="footer">
 			<div class="container">
-			 <div class="f-logo">
-				<img src="/images/Logo-white.png"alt="">
-			 </div>
+				<div class="f-logo">
+					<img src="/images/logo-white.png" alt="" />
+				</div>
 				<p>Copyright 2024 | Sérum de Luxe All Rights Reserved</p>
 			</div>
 		</section>
