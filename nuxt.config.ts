@@ -16,6 +16,10 @@ export default defineNuxtConfig({
 					href: '/favicon.ico',
 				},
 				{
+					rel: 'preload',
+					href: '/images/banner-img.png',
+				},
+				{
 					rel: 'stylesheet',
 					href: 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css',
 				},
